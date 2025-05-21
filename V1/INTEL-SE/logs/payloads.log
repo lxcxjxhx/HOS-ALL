@@ -7,3 +7,12 @@ Failed to generate payload for http://testsite.com/api (file_inclusion)
 Failed to generate payload for http://example.com/login (sql_injection)
 Failed to generate payload for http://example.com/login (xss)
 Failed to generate payload for http://testsite.com/api (file_inclusion)
+Failed to generate payload for http://example.com/login (sql_injection)
+Failed to generate payload for http://example.com/login (xss)
+Failed to generate payload for http://testsite.com/api (file_inclusion)
+Error: No IP addresses configured
+Error: No IP addresses configured
+Error: No IP addresses configured
+Error: No IP addresses configured
+Error: No IP addresses configured
+Error: No IP addresses configured
