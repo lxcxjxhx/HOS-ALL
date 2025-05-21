@@ -1,0 +1,4 @@
+libgtk-4-dev
+libcurl4-openssl-dev
+libyaml-dev
+libcjson-dev

@@ -1,0 +1,9 @@
+targets:
+  - url: "http://example.com/login"
+    vuln_types: ["sql_injection", "xss"]
+    parameters: ["username", "password"]
+    waf_bypass: false
+  - url: "http://testsite.com/api"
+    vuln_types: ["file_inclusion"]
+    parameters: ["file"]
+    waf_bypass: true
