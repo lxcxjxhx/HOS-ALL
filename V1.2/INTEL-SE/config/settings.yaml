@@ -1,0 +1,11 @@
+api_endpoint: https://api.x.ai/v1
+api_key: ''
+doc_path: /home/lxcxjxhx/PROJECT/INTEL-SE/docs
+enabled_tools:
+- nmap
+- metasploit
+- sqlmap
+tabs:
+  1:
+    ip: ''
+    port: ''
