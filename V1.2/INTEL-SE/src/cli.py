@@ -1,73 +1,31 @@
-import shlex
 import subprocess
-from datetime import datetime
 
 class CLIHandler:
     def __init__(self, app):
         self.app = app
-        self.safe_mode = False  # Safe mode disabled by default
-        self.blacklist = ["rm", "sudo", "dd", "mkfs", "reboot", "halt", "|", "&"]  # Blacklist for reference
+        self.available_tools = []
 
-    def execute_command(self, command, tab):
-        """Process and execute commands entered in the GUI."""
+    def update_available_tools(self, tools):
+        self.available_tools = tools
+        self.app.log_event("CLI_UPDATE", f"可用工具更新：{', '.join(tools)}")
+
+    def execute_command(self, command):
+        if not command:
+            return
         try:
-            if not command.strip():
-                return
-
-            # Log the command execution
-            self.app.log_event("COMMAND_EXEC", f"Command: {command}")
-
-            # Parse command
-            args = shlex.split(command)
-            cmd = args[0].lower()
-
-            # Check for blacklisted commands only if safe mode is enabled
-            if self.safe_mode and cmd in self.blacklist:
-                self.display_output(tab, f"Error: Command '{cmd}' is prohibited in safe mode\n")
-                self.app.log_event("CLI_ERROR", f"Prohibited command: {command}")
-                return
-
-            # Handle built-in commands
-            if cmd == "generate_payload":
-                if len(args) < 3:
-                    self.display_output(tab, "Usage: generate_payload <url> <vuln_type>\n")
-                    return
-                self.app.attack_module.generate_payload(args[1], args[2], tab)
-            elif cmd == "process_docs":
-                self.app.doc_processor.process_docs(tab)
-            elif cmd == "run_attack":
-                ip = tab.ip_entry.get()
-                if not ip:
-                    self.display_output(tab, "Error: No target IP specified\n")
-                    return
-                self.app.attack_module.run_attack(ip, tab)
+            if command.split()[0] in self.available_tools:
+                tool_path = f"/home/lxcxjxhx/PROJECT/INTEL-SE/tools/bin/{command.split()[0]}"
+                process = subprocess.Popen(f"cd {tool_path} && {command}", shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             else:
-                # Execute shell command
-                self.execute_shell_command(args, tab)
-
-        except Exception as e:
-            self.display_output(tab, f"Error executing command: {str(e)}\n")
-            self.app.log_event("CLI_ERROR", f"Command execution failed: {command} - {str(e)}")
-
-    def execute_shell_command(self, args, tab):
-        """Execute shell commands and display output."""
-        try:
-            # Execute command (no restrictions in non-safe mode)
-            result = subprocess.run(args, capture_output=True, text=True, timeout=30)
-            output = result.stdout or result.stderr
-            self.display_output(tab, output + "\n")
-            self.app.log_event("COMMAND_EXEC", f"Shell command output: {output}")
-
+                process = subprocess.Popen(command, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+            stdout, stderr = process.communicate(timeout=10)
+            output = stdout + stderr
+            self.app.log_event("COMMAND_EXEC", f"命令执行：{command}")
+            return output
         except subprocess.TimeoutExpired:
-            self.display_output(tab, "Error: Command execution timed out\n")
-            self.app.log_event("CLI_ERROR", "Command timed out")
+            process.kill()
+            self.app.log_event("CLI_ERROR", f"命令超时：{command}")
+            return f"错误：命令 '{command}' 超时"
         except Exception as e:
-            self.display_output(tab, f"Error executing shell command: {str(e)}\n")
-            self.app.log_event("CLI_ERROR", f"Shell command failed: {str(e)}")
-
-    def display_output(self, tab, message):
-        """Display text in the tab's output area."""
-        tab.output.config(state="normal")
-        tab.output.insert("end", message)
-        tab.output.config(state="disabled")
-        tab.output.see("end")
+            self.app.log_event("CLI_ERROR", f"命令失败：{str(e)}")
+            return f"错误：{str(e)}"

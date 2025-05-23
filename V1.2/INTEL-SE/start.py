@@ -6,6 +6,10 @@ import platform
 import yaml
 import subprocess
 from datetime import datetime
+import requests
+import zipfile
+import tarfile
+import shutil
 
 from src.gui import AttackSessionTab
 from src.cli import CLIHandler
@@ -75,7 +79,7 @@ class AttackSimulationApp:
         self.ai_button_canvas.pack(side="right", fill="y")
         self.ai_button_canvas.create_text(15, 350, text="信息安全AI", font=self.font, fill=self.text_color, angle=90)
         self.ai_button_canvas.bind("<Button-1>", self.on_ai_button_click)
-        self.ai_panel = ttk.Frame(self.ai_container, width=333, style="TFrame")  # 1/3 of 1000px
+        self.ai_panel = ttk.Frame(self.ai_container, width=333, style="TFrame")
         self.ai_panel.pack_propagate(False)
         ttk.Label(self.ai_panel, text="信息安全AI咨询", font=("Noto Sans CJK SC", 10, "bold")).pack(pady=5)
         self.ai_input = ttk.Entry(self.ai_panel, font=self.mono_font)
@@ -133,13 +137,13 @@ class AttackSimulationApp:
                 self.ai_container.configure(width=30)
                 self.content_frame.pack_configure(expand=True)
             else:
-                self.ai_container.configure(width=363)  # 30 + 333
+                self.ai_container.configure(width=363)
                 self.ai_panel.pack(side="right", fill="y", before=self.ai_button_canvas)
                 self.ai_button_canvas.configure(bg="#A0A0A0")
                 self.content_frame.pack_configure(expand=True)
             self.ai_panel_visible = not self.ai_panel_visible
             self.log_event("GUI_EVENT", f"AI面板{'显示' if self.ai_panel_visible else '隐藏'}")
-            self.root.update()  # Force layout update
+            self.root.update()
         except Exception as e:
             self.log_event("GUI_ERROR", f"AI面板切换失败：{str(e)}")
             messagebox.showerror("错误", f"无法切换AI面板：{str(e)}")
@@ -228,45 +232,214 @@ class AttackSimulationApp:
     def configure_security_tools(self):
         dialog = tk.Toplevel(self.root)
         dialog.title("信息安全工具下载配置")
-        dialog.geometry("500x400")
-        ttk.Label(dialog, text="选择要下载的工具：").pack(pady=5)
-        tools_frame = ttk.Frame(dialog)
-        tools_frame.pack(fill="both", padx=10, pady=5)
-        available_tools = [
-            {"name": "nmap", "url": "https://nmap.org/dist/nmap-7.94.tar.bz2"},
-            {"name": "metasploit", "url": "https://github.com/rapid7/metasploit-framework/archive/refs/heads/master.zip"},
-            {"name": "sqlmap", "url": "https://github.com/sqlmapproject/sqlmap/archive/refs/heads/master.zip"}
+        dialog.geometry("600x500")
+        ttk.Label(dialog, text="管理安全工具", font=("Noto Sans CJK SC", 12, "bold")).pack(pady=10)
+
+        notebook = ttk.Notebook(dialog)
+        notebook.pack(fill="both", expand=True, padx=10, pady=5)
+
+        # Application Market Tab
+        market_frame = ttk.Frame(notebook)
+        notebook.add(market_frame, text="应用市场")
+
+        market_canvas = tk.Canvas(market_frame)
+        market_scrollbar = ttk.Scrollbar(market_frame, orient="vertical", command=market_canvas.yview)
+        market_scrollable_frame = ttk.Frame(market_canvas)
+
+        market_scrollable_frame.bind(
+            "<Configure>",
+            lambda e: market_canvas.configure(scrollregion=market_canvas.bbox("all"))
+        )
+        market_canvas.create_window((0, 0), window=market_scrollable_frame, anchor="nw")
+        market_canvas.configure(yscrollcommand=market_scrollbar.set)
+        market_canvas.pack(side="left", fill="both", expand=True)
+        market_scrollbar.pack(side="right", fill="y")
+
+        tools_list = [
+            {"name": "nmap", "desc": "网络探测和安全审计工具", "url": "https://nmap.org/dist/nmap-7.94.tar.bz2"},
+            {"name": "metasploit", "desc": "渗透测试框架", "url": "https://github.com/rapid7/metasploit-framework/archive/refs/heads/master.zip"},
+            {"name": "wireshark", "desc": "网络协议分析器", "url": "https://2.na.dl.wireshark.org/src/wireshark-4.4.0.tar.xz"},
+            {"name": "sqlmap", "desc": "SQL注入和数据库接管工具", "url": "https://github.com/sqlmapproject/sqlmap/archive/refs/heads/master.zip"},
+            {"name": "burp-suite", "desc": "Web漏洞扫描器（社区版）", "url": "https://portswigger.net/burp/releases/download?type=jar"},
+            {"name": "aircrack-ng", "desc": "Wi-Fi安全审计套件", "url": "https://download.aircrack-ng.org/aircrack-ng-1.7.tar.gz"},
+            {"name": "john", "desc": "密码破解工具", "url": "https://www.openwall.com/john/k/john-1.9.0-jumbo-1.tar.xz"},
+            {"name": "hydra", "desc": "密码暴力破解工具", "url": "https://github.com/vanhauser-thc/thc-hydra/archive/refs/heads/master.zip"},
+            {"name": "nikto", "desc": "Web服务器漏洞扫描器", "url": "https://github.com/sullo/nikto/archive/refs/heads/master.zip"},
+            {"name": "openvas", "desc": "漏洞扫描器", "url": "https://github.com/greenbone/openvas-scanner/archive/refs/heads/main.zip"},
+            {"name": "kismet", "desc": "无线网络探测器和嗅探器", "url": "https://www.kismetwireless.net/files/kismet-2023-09-R1.tar.gz"},
+            {"name": "snort", "desc": "网络入侵检测系统", "url": "https://www.snort.org/downloads/snort/snort-2.9.20.tar.gz"},
+            {"name": "tcpdump", "desc": "网络数据包分析器", "url": "https://www.tcpdump.org/release/tcpdump-4.99.4.tar.gz"},
+            {"name": "hashcat", "desc": "高级密码恢复工具", "url": "https://hashcat.net/files/hashcat-6.2.6.tar.gz"},
+            {"name": "cain", "desc": "Windows密码恢复工具", "url": "http://www.oxid.it/downloads/cain_4_9_56.zip"},
+            {"name": "ettercap", "desc": "中间人攻击工具", "url": "https://github.com/Ettercap/ettercap/archive/refs/heads/master.zip"},
         ]
-        tool_vars = {}
-        config = self.config_manager.get_config()
-        enabled_tools = config.get("enabled_tools", [])
-        for tool in available_tools:
-            var = tk.BooleanVar(value=tool["name"] in enabled_tools)
-            tool_vars[tool["name"]] = var
-            ttk.Checkbutton(tools_frame, text=tool["name"], variable=var).pack(anchor="w", padx=5, pady=2)
-        def download_and_configure():
-            selected_tools = [name for name, var in tool_vars.items() if var.get()]
-            enabled_tools = []
+
+        progress_frame = ttk.Frame(market_frame)
+        progress_frame.pack(fill="x", padx=5, pady=5)
+        progress_bar = ttk.Progressbar(progress_frame, mode="determinate")
+        progress_bar.pack(fill="x", padx=5)
+        progress_label = ttk.Label(progress_frame, text="下载进度：0%")
+        progress_label.pack()
+
+        for tool in tools_list:
+            tool_frame = ttk.Frame(market_scrollable_frame)
+            tool_frame.pack(fill="x", padx=5, pady=2)
+            ttk.Label(tool_frame, text=f"{tool['name']}: {tool['desc']}").pack(side="left")
+            ttk.Button(tool_frame, text="下载", command=lambda t=tool: self.download_tool(t['name'], t['url'], update_tool_list, progress_bar, progress_label)).pack(side="right")
+
+        # Manual Download Tab
+        manual_frame = ttk.LabelFrame(notebook, text="手动下载")
+        notebook.add(manual_frame, text="手动下载")
+
+        ttk.Label(manual_frame, text="工具名称：").pack(anchor="w", padx=5, pady=2)
+        tool_name_entry = ttk.Entry(manual_frame)
+        tool_name_entry.pack(fill="x", padx=5, pady=2)
+        ttk.Label(manual_frame, text="下载链接：").pack(anchor="w", padx=5, pady=2)
+        tool_url_entry = ttk.Entry(manual_frame)
+        tool_url_entry.pack(fill="x", padx=5, pady=2)
+
+        manual_progress_frame = ttk.Frame(manual_frame)
+        manual_progress_frame.pack(fill="x", padx=5, pady=5)
+        manual_progress_bar = ttk.Progressbar(manual_progress_frame, mode="determinate")
+        manual_progress_bar.pack(fill="x", padx=5)
+        manual_progress_label = ttk.Label(manual_progress_frame, text="下载进度：0%")
+        manual_progress_label.pack()
+
+        def manual_download():
+            tool_name = tool_name_entry.get().strip()
+            tool_url = tool_url_entry.get().strip()
+            if not tool_name or not tool_url:
+                messagebox.showerror("错误", "请填写工具名称和下载链接")
+                return
+            self.download_tool(tool_name, tool_url, update_tool_list, manual_progress_bar, manual_progress_label)
+            tool_name_entry.delete(0, "end")
+            tool_url_entry.delete(0, "end")
+
+        ttk.Button(manual_frame, text="下载并安装", command=manual_download).pack(pady=10)
+
+        # Installed Tools Section
+        tools_frame = ttk.LabelFrame(dialog, text="已安装工具")
+        tools_frame.pack(fill="both", expand=True, padx=10, pady=5)
+        tools_canvas = tk.Canvas(tools_frame)
+        tools_scrollbar = ttk.Scrollbar(tools_frame, orient="vertical", command=tools_canvas.yview)
+        tools_scrollable_frame = ttk.Frame(tools_canvas)
+
+        tools_scrollable_frame.bind(
+            "<Configure>",
+            lambda e: tools_canvas.configure(scrollregion=tools_canvas.bbox("all"))
+        )
+        tools_canvas.create_window((0, 0), window=tools_scrollable_frame, anchor="nw")
+        tools_canvas.configure(yscrollcommand=tools_scrollbar.set)
+        tools_canvas.pack(side="left", fill="both", expand=True)
+        tools_scrollbar.pack(side="right", fill="y")
+
+        def update_tool_list():
+            for widget in tools_scrollable_frame.winfo_children():
+                widget.destroy()
+            tools_dir = "/home/lxcxjxhx/PROJECT/INTEL-SE/tools/bin"
+            if os.path.exists(tools_dir):
+                for tool_name in os.listdir(tools_dir):
+                    tool_path = os.path.join(tools_dir, tool_name)
+                    if os.path.isdir(tool_path) and os.path.exists(os.path.join(tool_path, "installed.txt")):
+                        tool_frame = ttk.Frame(tools_scrollable_frame)
+                        tool_frame.pack(fill="x", padx=5, pady=2)
+                        ttk.Label(tool_frame, text=f"工具: {tool_name} (路径: {tool_path})").pack(side="left")
+                        ttk.Button(tool_frame, text="打开文件夹", command=lambda p=tool_path: self.open_tool_folder(p)).pack(side="right", padx=5)
+                        ttk.Button(tool_frame, text="引用工具", command=lambda n=tool_name: self.reference_tool(n)).pack(side="right", padx=5)
+            else:
+                ttk.Label(tools_scrollable_frame, text="暂无已安装工具").pack(anchor="w", padx=5, pady=2)
+
+        def open_tools_folder():
             tools_dir = "/home/lxcxjxhx/PROJECT/INTEL-SE/tools"
-            os.makedirs(tools_dir, exist_ok=True)
-            os.chmod(tools_dir, 0o775)
-            for tool in available_tools:
-                if tool["name"] in selected_tools:
-                    tool_path = os.path.join(tools_dir, tool["name"])
-                    os.makedirs(tool_path, exist_ok=True)
-                    with open(os.path.join(tool_path, "installed.txt"), "w") as f:
-                        f.write(f"Simulated install of {tool['name']}\n")
-                    os.chmod(tool_path, 0o775)
-                    enabled_tools.append(tool["name"])
-                    self.log_event("TOOL_DOWNLOAD", f"工具 {tool['name']} 已下载（模拟）")
-            config["enabled_tools"] = enabled_tools
-            self.config_manager.save_config(config)
-            self.ai_query_module.update_enabled_tools(enabled_tools)
-            self.log_event("CONFIG_UPDATE", f"启用工具：{', '.join(enabled_tools)}")
-            dialog.destroy()
-        ttk.Button(dialog, text="下载并配置", command=download_and_configure).pack(pady=10)
+            try:
+                subprocess.run(["xdg-open", tools_dir], check=True)
+                self.log_event("GUI_EVENT", f"打开工具目录：{tools_dir}")
+            except Exception as e:
+                self.log_event("GUI_ERROR", f"无法打开工具目录：{str(e)}")
+                messagebox.showerror("错误", f"无法打开目录：{str(e)}")
+
+        ttk.Button(dialog, text="打开工具目录", command=open_tools_folder).pack(pady=10)
+
+        update_tool_list()
         dialog.transient(self.root)
         dialog.grab_set()
+
+    def download_tool(self, tool_name, tool_url, update_callback, progress_bar, progress_label):
+        try:
+            tools_dir = "/home/lxcxjxhx/PROJECT/INTEL-SE/tools"
+            tool_bin_dir = os.path.join(tools_dir, "bin", tool_name)
+            os.makedirs(tool_bin_dir, exist_ok=True)
+            os.chmod(tool_bin_dir, 0o775)
+            response = requests.get(tool_url, stream=True)
+            if response.status_code != 200:
+                raise Exception(f"下载失败，状态码：{response.status_code}")
+            file_name = tool_url.split("/")[-1]
+            file_path = os.path.join(tool_bin_dir, file_name)
+            total_size = int(response.headers.get("content-length", 0))
+            downloaded_size = 0
+            progress_bar["maximum"] = total_size
+            progress_bar["value"] = 0
+            with open(file_path, "wb") as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+                        downloaded_size += len(chunk)
+                        progress_bar["value"] = downloaded_size
+                        percentage = (downloaded_size / total_size * 100) if total_size > 0 else 0
+                        progress_label["text"] = f"下载进度：{percentage:.1f}%"
+                        self.root.update()
+            os.chmod(file_path, 0o664)
+            if file_name.endswith(".zip"):
+                with zipfile.ZipFile(file_path, "r") as zip_ref:
+                    zip_ref.extractall(tool_bin_dir)
+                os.remove(file_path)
+            elif file_name.endswith((".tar.gz", ".tgz", ".tar.bz2", ".tar.xz")):
+                with tarfile.open(file_path, "r:*") as tar_ref:
+                    tar_ref.extractall(tool_bin_dir)
+                os.remove(file_path)
+            with open(os.path.join(tool_bin_dir, "installed.txt"), "w") as f:
+                f.write(f"Installed {tool_name} from {tool_url} at {datetime.now()}\n")
+            config = self.config_manager.get_config()
+            enabled_tools = config.get("enabled_tools", [])
+            if tool_name not in enabled_tools:
+                enabled_tools.append(tool_name)
+                config["enabled_tools"] = enabled_tools
+                self.config_manager.save_config(config)
+                self.ai_query_module.update_enabled_tools(enabled_tools)
+            self.log_event("TOOL_DOWNLOAD", f"工具 {tool_name} 下载并安装到 {tool_bin_dir}")
+            messagebox.showinfo("成功", f"工具 {tool_name} 已下载并安装")
+            progress_bar["value"] = 0
+            progress_label["text"] = "下载进度：0%"
+            update_callback()
+        except Exception as e:
+            self.log_event("TOOL_ERROR", f"工具 {tool_name} 下载失败：{str(e)}")
+            messagebox.showerror("错误", f"下载工具失败：{str(e)}")
+            progress_bar["value"] = 0
+            progress_label["text"] = "下载进度：0%"
+
+    def open_tool_folder(self, tool_path):
+        try:
+            subprocess.run(["xdg-open", tool_path], check=True)
+            self.log_event("GUI_EVENT", f"打开工具目录：{tool_path}")
+        except Exception as e:
+            self.log_event("GUI_ERROR", f"无法打开工具目录：{str(e)}")
+            messagebox.showerror("错误", f"无法打开目录：{str(e)}")
+
+    def reference_tool(self, tool_name):
+        try:
+            config = self.config_manager.get_config()
+            referenced_tools = config.get("referenced_tools", [])
+            if tool_name not in referenced_tools:
+                referenced_tools.append(tool_name)
+                config["referenced_tools"] = referenced_tools
+                self.config_manager.save_config(config)
+                self.ai_query_module.update_enabled_tools(referenced_tools)
+                self.cli_handler.update_available_tools(referenced_tools)
+                self.log_event("TOOL_REFERENCE", f"工具 {tool_name} 已引用")
+                messagebox.showinfo("成功", f"工具 {tool_name} 已引用，可在AI面板或命令行中使用")
+        except Exception as e:
+            self.log_event("TOOL_ERROR", f"引用工具 {tool_name} 失败：{str(e)}")
+            messagebox.showerror("错误", f"引用工具失败：{str(e)}")
 
     def process_security_query(self, event):
         query = self.ai_input.get()
@@ -332,23 +505,40 @@ class AttackSimulationApp:
         self.root.mainloop()
 
 if __name__ == "__main__":
-    os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/logs", exist_ok=True)
-    os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/config", exist_ok=True)
-    os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/docs", exist_ok=True)
-    os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/cache", exist_ok=True)
-    os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/tools", exist_ok=True)
+    try:
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/logs", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/config", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/docs", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/cache", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/bin", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/config", exist_ok=True)
+        os.makedirs("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/logs", exist_ok=True)
+        os.chmod("/home/lxcxjxhx/PROJECT/INTEL-SE/tools", 0o775)
+        os.chmod("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/bin", 0o775)
+        os.chmod("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/config", 0o775)
+        os.chmod("/home/lxcxjxhx/PROJECT/INTEL-SE/tools/logs", 0o775)
+    except Exception as e:
+        print(f"目录创建失败：{str(e)}")
+        exit(1)
+
     settings_path = "/home/lxcxjxhx/PROJECT/INTEL-SE/config/settings.yaml"
     if not os.path.exists(settings_path):
-        with open(settings_path, "w") as f:
-            yaml.dump({
-                "model": "grok",
-                "doc_path": "/home/lxcxjxhx/PROJECT/INTEL-SE/docs",
-                "api_key": "",
-                "api_endpoint": "https://api.x.ai/v1",
-                "tabs": {},
-                "enabled_tools": []
-            }, f, allow_unicode=True)
-        os.chmod(settings_path, 0o664)
+        try:
+            with open(settings_path, "w") as f:
+                yaml.dump({
+                    "model": "grok",
+                    "doc_path": "/home/lxcxjxhx/PROJECT/INTEL-SE/docs",
+                    "api_key": "",
+                    "api_endpoint": "https://api.x.ai/v1",
+                    "tabs": {},
+                    "enabled_tools": [],
+                    "referenced_tools": []
+                }, f, allow_unicode=True)
+            os.chmod(settings_path, 0o664)
+        except Exception as e:
+            print(f"配置文件创建失败：{str(e)}")
+            exit(1)
+
     root = tk.Tk()
     app = AttackSimulationApp(root)
     app.run()

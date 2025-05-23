@@ -4,6 +4,7 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModel
 import pdfplumber
 from docx import Document
+import openpyxl
 import torch
 
 class DocProcessor:
@@ -42,6 +43,12 @@ class DocProcessor:
                 elif filename.endswith(".docx"):
                     doc = Document(file_path)
                     text = " ".join(paragraph.text for paragraph in doc.paragraphs)
+                elif filename.endswith(".xlsx"):
+                    workbook = openpyxl.load_workbook(file_path, data_only=True)
+                    text = ""
+                    for sheet in workbook.worksheets:
+                        for row in sheet.iter_rows(values_only=True):
+                            text += " ".join(str(cell) for cell in row if cell is not None) + " "
                 else:
                     continue
                 self.doc_texts.append(text)
