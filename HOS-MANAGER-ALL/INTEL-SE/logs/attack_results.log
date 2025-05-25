@@ -1,0 +1,2 @@
+[2025-05-22 11:58:53.702387] ATTACK: Simulated attack on 127.0.0.1:80 - Payload: Sample payload
+[2025-05-22 12:12:39.653720] ATTACK: Simulated attack on 127.0.0.1:0-65535 - Payload: Sample payload

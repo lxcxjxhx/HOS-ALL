@@ -1,0 +1,10 @@
+api_endpoint: http://localhost:8000
+api_key: ''
+doc_path: /home/lxcxjxhx/PROJECT/INTEL-SE/docs
+enabled_tools: []
+model: hos-qwen2.5-coder-7b
+referenced_tools: []
+tabs:
+  1:
+    ip: ''
+    port: ''
