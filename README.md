@@ -169,8 +169,8 @@
 
 ## 八、开源地址（示例）
 
-* GitHub：[https://github.com/Security-Hyacinth/AI-Defender](https://github.com/Security-Hyacinth/AI-Defender)
-* 数据集托管：[https://huggingface.co/security-hyacinth](https://huggingface.co/security-hyacinth)
-* Docker Hub 镜像：[https://hub.docker.com/r/securityhyacinth/agent](https://hub.docker.com/r/securityhyacinth/agent)
+* GitHub：[https://github.com/Security-Hyacinth/AI-Defender](https://github.com/Security-Hyacinth/AI-Defender](https://github.com/lxcxjxhx/INTEL-HOS)
+* 数据集托管：[https://huggingface.co/security-hyacinth](https://huggingface.co/security-hyacinth](https://huggingface.co/lxcxjxhx/INTEL-HOS-MODEL)
+
 
 ---
