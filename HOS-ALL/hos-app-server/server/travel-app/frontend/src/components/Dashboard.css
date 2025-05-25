@@ -1,0 +1,45 @@
+.dashboard-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dashboard-container h2,
+.dashboard-container h3 {
+  margin-bottom: 20px;
+}
+
+.dashboard-container button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.dashboard-container button:hover {
+  background-color: #0056b3;
+}
+
+.dashboard-container .chart {
+  margin-bottom: 20px;
+}
+
+.dashboard-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-container li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.dashboard-container .error {
+  color: red;
+  margin-bottom: 20px;
+}

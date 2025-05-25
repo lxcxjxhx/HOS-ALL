@@ -1,0 +1,93 @@
+/* pages/swiper/swipr.wxss */
+
+.navBar {
+  display: flex;
+  justify-content: space-around;
+  height: 100rpx;
+  position: relative;
+  background: #fff;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes barAnimate{
+  from{
+    background: blue
+  }
+  to{
+    background: rgba(0, 0, 255, .1)
+  }
+}
+
+.navbar-slider{
+  position: absolute;
+  bottom: 0;
+  height: 4rpx;
+  background: blue;
+  animation: barAnimate linear 1s infinite alternate-reverse;
+}
+
+.active {
+  color: blue;
+}
+
+.content_wrapper{
+  flex: 1;
+  height: 1000rpx;
+}
+
+.content_page{
+  font-size: 40rpx;
+  display: flex;
+  font-weight: bold;
+}
+
+.note-item {
+  display: flex;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.note-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.note-content {
+  flex: 1;
+}
+
+.note-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.note-status {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  display: inline-block;
+}
+
+.passed { background: #e6f4ff; color: #1677ff; }
+.reviewing { background: #fff7e6; color: #fa8c16; }
+.rejected { background: #fff1f0; color: #ff4d4f; }
+
+.note-text {
+  font-size: 28rpx;
+  color: #666;
+  margin: 15rpx 0;
+}
+
+.note-image {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 10rpx;
+}

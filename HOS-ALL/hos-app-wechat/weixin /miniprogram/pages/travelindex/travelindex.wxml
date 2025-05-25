@@ -1,0 +1,81 @@
+
+<image 
+  src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/bg@1x.png" 
+  style="width: 2000rpx;margin-left: -400rpx;height: 1700rpx;position: fixed;z-index: -1;margin-top: -40rpx;"
+></image>
+
+
+<view style="font-size: 60rpx;margin-top: 100rpx;margin-left: 40rpx;font-weight: 700;">精彩游记推荐</view>
+
+<image 
+  src="{{userAvatar}}" 
+  style="height:130rpx;width: 130rpx;position: absolute;top: 70rpx;right: 20rpx;" 
+  bindtap="tomyNotes"
+></image>
+
+<view class="search-container">
+  <view class="search-left" bindtap="executeSearch">
+    <image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/搜索.png" />
+    <input 
+      type="text" 
+      placeholder="搜索心仪的旅游故事"
+      bindinput="onSearchInput"
+      bindconfirm="executeSearch"
+    />
+  </view>
+</view>
+
+<scroll-view 
+  style="height: 1000rpx;width: 85%;background-color: rgb(104, 224, 208);margin-top: 100rpx;margin-left: 55rpx;" 
+  scroll-y="true" 
+  bindscroll="onScroll"
+>
+  <view class="content">
+    <view wx:if="{{columns[0].length === 0 && columns[1].length === 0 && !loading}}" 
+          style="text-align: center; padding: 50rpx; color: #666;">
+      暂无相关游记
+    </view>
+    <view wx:else>
+      <view class="left">
+      <block wx:for="{{columns[0]}}" wx:key="index">
+        <template is="item" data="{{...item}}"></template>
+      </block>
+    </view>
+
+    <view class="right">
+      <block wx:for="{{columns[1]}}" wx:key="index">
+        <template is="item" data="{{...item}}"></template>
+      </block>
+    </view>
+    </view>
+
+  </view>
+</scroll-view>
+
+<template name="item" bind:tap="toDetail">
+  <view class="item" style="margin-bottom: 40rpx;" bindtap="toDetail" data-id="{{num}}">
+    
+    <image 
+      class="item-img" 
+      src="{{url}}" 
+      mode="widthFix"
+    ></image>
+
+    <view class="item-title-box">
+      <navigator url="" class="item-title">{{title}}</navigator>
+    </view>
+
+    <view class="name">
+      <image 
+        class="item-ava" 
+        src="{{avatar}}"
+      ></image>
+
+      <text class="name-title">{{name}}</text>
+
+      <view class="heart">
+        <text>{{num}}</text>
+      </view>
+    </view>
+  </view>
+</template>
