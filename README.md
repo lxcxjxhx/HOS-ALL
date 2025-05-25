@@ -79,7 +79,7 @@
 
 ---
 
-### 2. 云端AI训练与联邦协同
+### 2. 云端AI训练
 
 * 使用 NVIDIA Morpheus 平台接收并聚合边缘数据。
 * 利用 NVIDIA Triton Inference Server 构建高并发推理接口。
