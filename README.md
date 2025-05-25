@@ -167,10 +167,15 @@
 
 ---
 
-## 八、开源地址（示例）
+## 八、开源地址
 
-* GitHub：[https://github.com/Security-Hyacinth/AI-Defender](https://github.com/Security-Hyacinth/AI-Defender](https://github.com/lxcxjxhx/INTEL-HOS)
-* 数据集托管：[https://huggingface.co/security-hyacinth](https://huggingface.co/security-hyacinth](https://huggingface.co/lxcxjxhx/INTEL-HOS-MODEL)
+* GitHub：[https://github.com/lxcxjxhx/INTEL-HOS](https://github.com/lxcxjxhx/INTEL-HOS)
+* 数据集托管：[https://huggingface.co/lxcxjxhx/INTEL-HOS-MODEL](https://huggingface.co/lxcxjxhx/INTEL-HOS-MODEL)
 
 
 ---
+
+
+
+
+
