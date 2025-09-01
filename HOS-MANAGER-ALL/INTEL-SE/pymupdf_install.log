@@ -1,4 +1,0 @@
-Using pip 25.1.1 from /home/lxcxjxhx/PROJECT/INTEL-SE/venv/lib/python3.12/site-packages/pip (python 3.12)
-WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='pypi.org', port=443): Read timed out. (read timeout=15)")': /simple/pymupdf/
-ERROR: Could not find a version that satisfies the requirement PyMuPDF==1.24.10 (from versions: none)
-ERROR: No matching distribution found for PyMuPDF==1.24.10
