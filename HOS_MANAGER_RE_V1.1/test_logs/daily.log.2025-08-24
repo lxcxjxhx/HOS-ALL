@@ -1,0 +1,176 @@
+2025-08-24 16:15:24 - cybersecurity_platform - DEBUG - 执行操作 flaky_function (尝试 1/5)
+2025-08-24 16:15:24 - cybersecurity_platform - WARNING - 操作 flaky_function 第 1 次尝试失败，0.01秒后重试
+2025-08-24 16:15:24 - cybersecurity_platform - DEBUG - 执行操作 flaky_function (尝试 2/5)
+2025-08-24 16:15:24 - cybersecurity_platform - WARNING - 操作 flaky_function 第 2 次尝试失败，0.02秒后重试
+2025-08-24 16:15:24 - cybersecurity_platform - DEBUG - 执行操作 flaky_function (尝试 3/5)
+2025-08-24 16:15:24 - cybersecurity_platform - INFO - 操作 flaky_function 在第 3 次尝试后成功
+2025-08-24 16:15:24 - cybersecurity_platform - DEBUG - 执行操作 flaky_function (尝试 1/3)
+2025-08-24 16:15:24 - cybersecurity_platform - WARNING - 操作 flaky_function 第 1 次尝试失败，0.01秒后重试
+2025-08-24 16:15:24 - cybersecurity_platform - DEBUG - 执行操作 flaky_function (尝试 2/3)
+2025-08-24 16:15:24 - cybersecurity_platform - INFO - 操作 flaky_function 在第 2 次尝试后成功
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 always_failing_function (尝试 1/3)
+2025-08-24 16:15:25 - cybersecurity_platform - WARNING - 操作 always_failing_function 第 1 次尝试失败，0.00秒后重试
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 always_failing_function (尝试 2/3)
+2025-08-24 16:15:25 - cybersecurity_platform - WARNING - 操作 always_failing_function 第 2 次尝试失败，0.00秒后重试
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 always_failing_function (尝试 3/3)
+2025-08-24 16:15:25 - cybersecurity_platform - ERROR - 操作 always_failing_function 在 3 次尝试后最终失败
+2025-08-24 16:15:25 - cybersecurity_platform - ERROR - 错误详情: NetworkError: 总是失败 3
+Traceback (most recent call last):
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\src\core\logging_system.py", line 92, in retry_async
+    result = await func(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\tests\test_logging_system.py", line 245, in always_failing_function
+    raise NetworkError(f"总是失败 {call_count}")
+core.exceptions.NetworkError: 总是失败 3
+
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 function_with_non_retryable_error (尝试 1/3)
+2025-08-24 16:15:25 - cybersecurity_platform - ERROR - 操作 function_with_non_retryable_error 遇到不在重试范围内的异常
+2025-08-24 16:15:25 - cybersecurity_platform - ERROR - 错误详情: ValueError: 不可重试的错误
+Traceback (most recent call last):
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\src\core\logging_system.py", line 167, in retry_sync
+    result = func(*args, **kwargs)
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\tests\test_logging_system.py", line 265, in function_with_non_retryable_error
+    raise ValueError("不可重试的错误")
+ValueError: 不可重试的错误
+
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 function_with_stop_exception (尝试 1/3)
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 successful_function (尝试 1/2)
+2025-08-24 16:15:25 - cybersecurity_platform - DEBUG - 执行操作 failing_function (尝试 1/2)
+2025-08-24 16:15:25 - cybersecurity_platform - WARNING - 操作 failing_function 第 1 次尝试失败，1.00秒后重试
+2025-08-24 16:15:26 - cybersecurity_platform - DEBUG - 执行操作 failing_function (尝试 2/2)
+2025-08-24 16:15:26 - cybersecurity_platform - ERROR - 操作 failing_function 在 2 次尝试后最终失败
+2025-08-24 16:15:26 - cybersecurity_platform - ERROR - 错误详情: NetworkError: 失败
+Traceback (most recent call last):
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\src\core\logging_system.py", line 167, in retry_sync
+    result = func(*args, **kwargs)
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\tests\test_logging_system.py", line 356, in failing_function
+    raise NetworkError("失败")
+core.exceptions.NetworkError: 失败
+
+2025-08-24 16:15:26 - cybersecurity_platform - WARNING - 警告消息
+2025-08-24 16:15:26 - cybersecurity_platform - ERROR - 错误消息
+2025-08-24 16:15:26 - cybersecurity_platform - ERROR - 错误详情: Exception: 测试异常
+NoneType: None
+
+2025-08-24 16:15:26 - cybersecurity_platform - CRITICAL - 严重错误消息
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 检测到错误模式: API key
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 执行恢复动作: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 重新加载系统配置
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 恢复成功: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 检测到错误模式: API key
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 执行恢复动作: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 重新加载系统配置
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 恢复成功: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 检测到错误模式: 
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 执行恢复动作: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 清理系统缓存
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 恢复成功: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 检测到错误模式: 
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 执行恢复动作: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 清理系统缓存
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 恢复成功: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:53 - cybersecurity_platform - DEBUG - 执行操作 failing_function (尝试 1/5)
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 操作 failing_function 第 1 次尝试失败，0.10秒后重试
+2025-08-24 16:15:53 - cybersecurity_platform - DEBUG - 执行操作 failing_function (尝试 2/5)
+2025-08-24 16:15:53 - cybersecurity_platform - WARNING - 操作 failing_function 第 2 次尝试失败，0.20秒后重试
+2025-08-24 16:15:53 - cybersecurity_platform - DEBUG - 执行操作 failing_function (尝试 3/5)
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 操作 failing_function 在第 3 次尝试后成功
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation

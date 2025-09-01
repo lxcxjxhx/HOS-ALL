@@ -1,0 +1,37 @@
+[2025-08-24T16:16:06.644609] INFO - error_recovery: 注册恢复处理器: restart_component
+
+[2025-08-24T16:16:06.661861] INFO - error_recovery: 注册恢复处理器: reset_connection
+
+[2025-08-24T16:16:06.662937] INFO - error_recovery: 注册恢复处理器: clear_cache
+
+[2025-08-24T16:16:06.664042] INFO - error_recovery: 注册恢复处理器: reload_config
+
+[2025-08-24T16:16:06.665063] INFO - error_recovery: 注册恢复处理器: switch_provider
+
+[2025-08-24T16:16:06.665903] INFO - error_recovery: 注册恢复处理器: reduce_load
+
+[2025-08-24T16:16:06.666686] INFO - error_recovery: 注册恢复处理器: escalate_to_admin
+
+[2025-08-24T16:16:06.667499] INFO - error_recovery: 注册恢复处理器: graceful_degradation
+
+[2025-08-24T16:16:06.668798] DEBUG - demo_error_recovery: 调试信息
+  Context: {"module": "demo", "function": "test"}
+
+[2025-08-24T16:16:06.669504] INFO - demo_error_recovery: 系统启动
+  Context: {"version": "1.0.0", "mode": "demo"}
+
+[2025-08-24T16:16:06.670298] WARNING - demo_error_recovery: 配置项缺失
+  Context: {"missing_key": "api_timeout"}
+
+[2025-08-24T16:16:06.671129] ERROR - demo_error_recovery: 数据库连接失败
+  Context: {"host": "localhost", "port": 5432}
+  Error: NetworkError: 连接超时
+NoneType: None
+
+
+[2025-08-24T16:16:06.672508] CRITICAL - demo_error_recovery: 系统内存不足
+  Context: {"available_memory": "50MB", "required": "200MB"}
+
+[2025-08-24T16:16:06.675298] INFO - demo_error_recovery: 日志导出成功: logs/demo_export.json
+  Context: {"format": "json", "count": 13}
+

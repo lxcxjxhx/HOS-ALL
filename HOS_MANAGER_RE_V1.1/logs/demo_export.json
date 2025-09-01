@@ -1,0 +1,146 @@
+[
+  {
+    "timestamp": "2025-08-24T16:16:06.644609",
+    "level": "INFO",
+    "message": "注册恢复处理器: restart_component",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.661861",
+    "level": "INFO",
+    "message": "注册恢复处理器: reset_connection",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.662937",
+    "level": "INFO",
+    "message": "注册恢复处理器: clear_cache",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.664042",
+    "level": "INFO",
+    "message": "注册恢复处理器: reload_config",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.665063",
+    "level": "INFO",
+    "message": "注册恢复处理器: switch_provider",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.665903",
+    "level": "INFO",
+    "message": "注册恢复处理器: reduce_load",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.666686",
+    "level": "INFO",
+    "message": "注册恢复处理器: escalate_to_admin",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.667499",
+    "level": "INFO",
+    "message": "注册恢复处理器: graceful_degradation",
+    "component": "error_recovery",
+    "context": null,
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.668798",
+    "level": "DEBUG",
+    "message": "调试信息",
+    "component": "demo_error_recovery",
+    "context": {
+      "module": "demo",
+      "function": "test"
+    },
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.669504",
+    "level": "INFO",
+    "message": "系统启动",
+    "component": "demo_error_recovery",
+    "context": {
+      "version": "1.0.0",
+      "mode": "demo"
+    },
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.670298",
+    "level": "WARNING",
+    "message": "配置项缺失",
+    "component": "demo_error_recovery",
+    "context": {
+      "missing_key": "api_timeout"
+    },
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.671129",
+    "level": "ERROR",
+    "message": "数据库连接失败",
+    "component": "demo_error_recovery",
+    "context": {
+      "host": "localhost",
+      "port": 5432
+    },
+    "error_details": "NetworkError: 连接超时\nNoneType: None\n",
+    "session_id": null,
+    "user_id": null
+  },
+  {
+    "timestamp": "2025-08-24T16:16:06.672508",
+    "level": "CRITICAL",
+    "message": "系统内存不足",
+    "component": "demo_error_recovery",
+    "context": {
+      "available_memory": "50MB",
+      "required": "200MB"
+    },
+    "error_details": null,
+    "session_id": null,
+    "user_id": null
+  }
+]

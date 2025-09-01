@@ -1,0 +1,52 @@
+<image 
+  src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/bg@1x.png" 
+  style="width: 2000rpx;margin-left: -400rpx;height: 1700rpx;position: fixed;z-index: -1;margin-top: -40rpx;"
+></image>
+
+<image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/分享.png" style="width: 60rpx;position: relative;left: 670rpx;top: 30rpx;" mode="widthFix"></image>
+<image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/删除.png" style="width: 60rpx;position: relative;left: 600rpx;top: -30rpx;" mode="widthFix" bind:tap="delete"></image>
+
+<view style="font-size: 60rpx;margin-top: 100rpx;margin-left: 40rpx;font-weight: 700;">游记详情</view>
+
+<view style="width: 90%;height: 300rpx;position: relative;left: 40rpx;top: 20rpx;border-radius: 20rpx;">
+  <view class="banner">
+    <swiper 
+  indicator-dots 
+  indicator-color="rgba(255,255,255,0.5)"
+  indicator-active-color="#fff" 
+  circular 
+  autoplay 
+  interval="4000"
+  style="height: 300rpx;"
+>
+  <swiper-item wx:for="{{mediaList}}" wx:key="index">
+    <video 
+      wx:if="{{item.type === 'video'}}" 
+      src="{{item.url}}" 
+      controls 
+      style="width:100%; height:100%; object-fit: cover;"
+    ></video>
+    <image 
+      wx:else 
+      src="{{item.url}}" 
+      style="width:100%; height:100%;"
+      mode="aspectFill"
+    ></image>
+  </swiper-item>
+</swiper>
+</view>
+</view>
+
+<view class="divLine" style="position:relative; top: 60rpx;"></view>
+
+<scroll-view style="width: 90%;height: 800rpx;background-color: white;position: relative;left: 40rpx;top: 100rpx;">
+  <image 
+  src="{{noteDetail.avatar}}" 
+  style="height:80rpx;width: 80rpx;position: absolute;top: 40rpx;left: 40rpx;" 
+></image>
+  <view style="position: relative;font-size: 35rpx;top: 60rpx;left: 140rpx;">{{noteDetail.account}}</view>
+  <view class="divLine" style="position:relative; top: 100rpx;background-color: rgb(202, 202, 202);height: 4rpx;"></view>
+  <view style="font-size: 40rpx;margin-top: 130rpx;margin-left: 40rpx;font-weight: 700;">{{noteDetail.title}}</view>
+  <view class="divLine" style="position:relative; top: 30rpx;background-color: rgb(202, 202, 202);height: 4rpx;width: 90%;left: 30rpx;"></view>
+  <view style="font-size: 33rpx;margin-top: 50rpx;margin-left: 40rpx;font-weight: 400;">{{noteDetail.content}}</view>
+</scroll-view>

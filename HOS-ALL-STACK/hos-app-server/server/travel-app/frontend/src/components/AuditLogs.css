@@ -1,0 +1,41 @@
+.audit-logs-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.audit-logs-container h2,
+.audit-logs-container h3 {
+  margin-bottom: 20px;
+}
+
+.audit-logs-container ul {
+  list-style: none;
+  padding: 0;
+}
+
+.audit-logs-container li {
+  padding: 10px 0;
+  border-bottom: 稅1px solid #eee;
+}
+
+.audit-logs-container button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.audit-logs-container button:hover {
+  background-color: #0056b3;
+}
+
+.audit-logs-container .error {
+  color: red;
+  margin-bottom: 20px;
+}

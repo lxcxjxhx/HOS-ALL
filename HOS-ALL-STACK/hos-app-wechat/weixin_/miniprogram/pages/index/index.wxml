@@ -1,0 +1,36 @@
+<image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/群组 2@1x.png" style="width: 100%;" mode="widthFix"></image>
+
+<view class="container">
+  <view class="logo">
+   
+    
+  </view>
+  
+  <view class="form">
+    <view class="input-group">
+      <text class="label">用户名</text>
+      <input 
+        type="text" 
+        placeholder="请输入用户名" 
+        bindinput="onAccountInput"
+        value="{{account}}"
+      />
+    </view>
+    
+    <view class="input-group">
+      <text class="label">密码</text>
+      <input 
+        type="password" 
+        placeholder="请输入密码" 
+        bindinput="onPasswordInput"
+        value="{{password}}"
+      />
+    </view>
+    
+    <button class="login-btn" bindtap="onLogin">登录</button>
+  </view>
+  
+  <view class="register-tip" bindtap="navigateToRegister">
+    <text>未注册？点击注册</text>
+  </view>
+</view>

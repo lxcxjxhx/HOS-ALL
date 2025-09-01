@@ -1,0 +1,47 @@
+{
+  "ai_providers": {
+    "default": "deepseek",
+    "deepseek": {
+      "api_key": "",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-chat"
+    },
+    "openai": {
+      "api_key": "",
+      "base_url": "https://api.openai.com/v1",
+      "model": "gpt-4"
+    },
+    "claude": {
+      "api_key": "",
+      "base_url": "https://api.anthropic.com",
+      "model": "claude-3-sonnet-20240229"
+    },
+    "gemini": {
+      "api_key": "",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "model": "gemini-pro"
+    },
+    "ollama": {
+      "base_url": "http://localhost:11434",
+      "model": "llama2"
+    }
+  },
+  "security": {
+    "encryption_key": "",
+    "max_concurrent_sessions": 5,
+    "session_timeout": 3600,
+    "enable_audit_log": true
+  },
+  "network": {
+    "default_scan_timeout": 30,
+    "max_scan_threads": 10,
+    "allowed_networks": [],
+    "blocked_networks": ["127.0.0.0/8", "10.0.0.0/8"]
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/cybersecurity_platform.log",
+    "max_size": "10MB",
+    "backup_count": 5
+  }
+}

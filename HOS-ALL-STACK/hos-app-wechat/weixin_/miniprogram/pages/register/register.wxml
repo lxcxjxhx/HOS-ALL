@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="logo">
+    <text>您好，欢迎注册</text>
+  </view>
+  
+  <view class="form">
+    <view class="input-group">
+      <text class="label">用户名</text>
+      <input 
+        type="text" 
+        placeholder="请输入用户名" 
+        bindinput="onAccountInput"
+        value="{{account}}"
+      />
+    </view>
+    
+    <view class="input-group">
+      <text class="label">密码</text>
+      <input 
+        type="password" 
+        placeholder="请输入密码" 
+        bindinput="onPasswordInput"
+        value="{{password}}"
+      />
+    </view>
+    
+    <view class="input-group">
+      <text class="label">确认密码</text>
+      <input 
+        type="password" 
+        placeholder="请再次输入密码" 
+        bindinput="onConfirmPasswordInput"
+        value="{{confirmPassword}}"
+      />
+    </view>
+    
+    <button class="register-btn" bindtap="onRegister">注册</button>
+  </view>
+  
+  <view class="login-tip" bindtap="navigateToLogin">
+    <text>已有账号？去登录</text>
+  </view>
+</view>

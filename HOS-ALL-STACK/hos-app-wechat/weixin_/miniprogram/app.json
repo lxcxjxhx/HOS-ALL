@@ -1,0 +1,49 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/register/register",
+    "pages/travelindex/travelindex",
+    "pages/myNotes/myNotes",
+    "pages/publishNote/publishNote",
+    "pages/noteDetail/noteDetail",
+    "pages/publishNote/detail"
+  ],
+  "tabBar": {
+    "color": "#000000", 
+    "selectedColor": "#00BFFF",
+    "backgroundColor": "#FFFFFF",  
+    "borderStyle": "black",  
+    "position": "bottom", 
+    "custom": false,  
+    "list": [  
+      {
+        "pagePath": "pages/travelindex/travelindex",  
+        "text": "首页", 
+        "iconPath": "/images/游记.png",  
+        "selectedIconPath": "images/游记 (1).png" 
+      },
+      {
+        "pagePath": "pages/publishNote/publishNote",  
+        "text": "游记发布", 
+        "iconPath": "/images/添 加.png",  
+        "selectedIconPath": "/images/添 加 (1).png" 
+      },
+      {
+        "pagePath": "pages/myNotes/myNotes",
+        "text": "个人中心",
+        "iconPath": "/images/个人中心.png",
+        "selectedIconPath": "/images/个人中心 (1).png"
+      }
+    ]
+  } ,
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "游记小程序",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

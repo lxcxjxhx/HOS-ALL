@@ -1,0 +1,64 @@
+<view class="container">
+  <form bindsubmit="formSubmit">
+    <view class="form-item">
+      <input name="title" placeholder="请输入标题" value="{{title}}" />
+    </view>
+    
+    <view class="form-item">
+      <textarea 
+        name="content" 
+        placeholder="请输入游记内容" 
+        value="{{content}}"
+        auto-height
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="upload-header">
+        <text>上传图片（必传）</text>
+        <text class="count">({{images.length}}/9)</text>
+      </view>
+      <view class="upload-container">
+        <block wx:for="{{images}}" wx:key="index">
+          <view class="preview-item">
+            <image src="{{item}}" class="preview" />
+            <text class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</text>
+          </view>
+        </block>
+        <view 
+          class="upload-btn" 
+          bindtap="chooseImage"
+          wx:if="{{images.length < 9}}"
+        >
+          +
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="upload-header">
+        <text>上传视频（可选）</text>
+        <switch checked="{{videoSwitch}}" bindchange="videoSwitchChange" />
+      </view>
+      <block wx:if="{{videoSwitch}}">
+        <video 
+          src="{{videoUrl}}" 
+          wx:if="{{videoUrl}}" 
+          controls 
+          class="video-preview"
+        />
+        <view class="upload-container">
+          <view 
+            class="upload-btn video-btn" 
+            bindtap="chooseVideo"
+            wx:if="{{!videoUrl}}"
+          >
+            选择视频
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <button form-type="submit" class="submit-btn" loading="{{loading}}">发布游记</button>
+  </form>
+</view>

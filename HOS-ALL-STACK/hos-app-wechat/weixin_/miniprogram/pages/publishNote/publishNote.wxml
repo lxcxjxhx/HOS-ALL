@@ -1,0 +1,38 @@
+<image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/群组 1@1x (1).png" style="width: 100%;" mode="widthFix"></image>
+<view style="height: 200rpx;width: 95%;background-color: white;margin-left: 20rpx;margin-top: -110rpx;border-radius: 30rpx;border: rgb(69, 69, 255) solid 1rpx;">
+  <view style="color: green;margin-top: 80rpx;font-size: 35rpx;margin-left: 50rpx;">记录在旅途中的点点滴滴</view>
+  <image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/相机1.png" style="width: 60rpx;position: relative;top: -50rpx;left: 580rpx;" mode="widthFix"></image>
+</view>
+
+<view style="background-color: white;width: 100%;height: 600rpx;margin-top: 100rpx;">
+  <image style="width: 60rpx;margin-left: 60rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/antOutline-team 1@1x.png"></image>
+  <view style="position: relative;top: -60rpx;font-size: 40rpx;left: 200rpx;">
+    设置可见范围
+  </view>
+  <image style="width: 50rpx;margin-left: 60rpx;position: relative;top: -110rpx;left: 600rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/ze-arrow 1 Copy 1@1x.png"></image>
+  <view class="divLine" style="position:relative; top:-90rpx;"></view>
+
+  <image style="width: 60rpx;margin-left: 60rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/iconPark-record-disc 1@1x.png"></image>
+  <view style="position: relative;top: -60rpx;font-size: 40rpx;left: 200rpx;">
+    添加背景音乐
+  </view>
+  <image style="width: 50rpx;margin-left: 60rpx;position: relative;top: -110rpx;left: 600rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/ze-arrow 1 Copy 1@1x.png"></image>
+  <view class="divLine" style="position:relative; top:-90rpx;"></view>
+
+  <image style="width: 60rpx;margin-left: 60rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/riLine-wechat-2-line 1@1x.png"></image>
+  <view style="position: relative;top: -60rpx;font-size: 40rpx;left: 200rpx;">
+    分享到其他社交平台
+  </view>
+  <image style="width: 50rpx;margin-left: 60rpx;position: relative;top: -110rpx;left: 600rpx;" mode="widthFix" src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/ze-arrow 1 Copy 1@1x.png"></image>
+  <view class="divLine" style="position:relative; top:-90rpx;"></view>
+</view>
+
+<view style="height: 100rpx;width: 100%;background-color: white;position: relative;top: -120rpx;">
+  <image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/保存.png" style="width: 60rpx;top: 0rpx;left: 40rpx;position: relative;" mode="widthFix"></image>
+  <view style="margin-left: 25rpx;">存草稿</view>
+
+  <image src="cloud://cloud1-4gdvzpwx2337fba5.636c-cloud1-4gdvzpwx2337fba5-1357899509/picture/预览.png" style="width: 60rpx;top: -100rpx;margin-left: 240rpx;position: relative;" mode="widthFix"></image>
+  <view style="position: relative;top: -105rpx;left: 240rpx;">预览</view>
+
+  <button style="position: relative;top: -200rpx;left: 200rpx;background-color: rgb(109, 231, 109);border-radius: 40rpx;" bind:tap="toPublish">发布笔记</button>
+</view>

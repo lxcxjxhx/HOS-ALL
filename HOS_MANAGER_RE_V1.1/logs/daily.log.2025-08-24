@@ -1,0 +1,95 @@
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:15:03 - cybersecurity_platform - DEBUG - 调试信息
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 系统启动
+2025-08-24 16:15:03 - cybersecurity_platform - WARNING - 配置项缺失
+2025-08-24 16:15:03 - cybersecurity_platform - ERROR - 数据库连接失败
+2025-08-24 16:15:03 - cybersecurity_platform - ERROR - 错误详情: NetworkError: 连接超时
+NoneType: None
+
+2025-08-24 16:15:03 - cybersecurity_platform - CRITICAL - 系统内存不足
+2025-08-24 16:15:03 - cybersecurity_platform - ERROR - 日志导出失败
+2025-08-24 16:15:03 - cybersecurity_platform - ERROR - 错误详情: TypeError: Object of type LogLevel is not JSON serializable
+Traceback (most recent call last):
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\src\core\logging_system.py", line 655, in export_logs
+    json.dump([asdict(log) for log in logs], f, indent=2, ensure_ascii=False)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\DEVSOFT\MINICONDA\Lib\json\__init__.py", line 179, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "C:\DEVSOFT\MINICONDA\Lib\json\encoder.py", line 431, in _iterencode
+    yield from _iterencode_list(o, _current_indent_level)
+  File "C:\DEVSOFT\MINICONDA\Lib\json\encoder.py", line 326, in _iterencode_list
+    yield from chunks
+  File "C:\DEVSOFT\MINICONDA\Lib\json\encoder.py", line 407, in _iterencode_dict
+    yield from chunks
+  File "C:\DEVSOFT\MINICONDA\Lib\json\encoder.py", line 440, in _iterencode
+    o = _default(o)
+  File "C:\DEVSOFT\MINICONDA\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type LogLevel is not JSON serializable
+
+2025-08-24 16:15:03 - cybersecurity_platform - INFO - 日志导出成功: logs/demo_export.txt
+2025-08-24 16:15:03 - cybersecurity_platform - DEBUG - 执行操作 unreliable_network_call (尝试 1/5)
+2025-08-24 16:15:03 - cybersecurity_platform - DEBUG - 执行操作 flaky_api_call (尝试 1/3)
+2025-08-24 16:15:03 - cybersecurity_platform - DEBUG - 执行操作 timeout_prone_operation (尝试 1/4)
+2025-08-24 16:15:05 - cybersecurity_platform - WARNING - 操作 timeout_prone_operation 第 1 次尝试失败，0.30秒后重试
+2025-08-24 16:15:05 - cybersecurity_platform - DEBUG - 执行操作 timeout_prone_operation (尝试 2/4)
+2025-08-24 16:15:06 - cybersecurity_platform - INFO - 操作 timeout_prone_operation 在第 2 次尝试后成功
+2025-08-24 16:15:06 - cybersecurity_platform - WARNING - 检测到错误模式: 配置
+2025-08-24 16:15:06 - cybersecurity_platform - INFO - 执行恢复动作: reload_config
+2025-08-24 16:15:06 - cybersecurity_platform - INFO - 重新加载系统配置
+2025-08-24 16:15:06 - cybersecurity_platform - INFO - 恢复成功: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:15:53 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: restart_component
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: reset_connection
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: clear_cache
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: reload_config
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: switch_provider
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: reduce_load
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: escalate_to_admin
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 注册恢复处理器: graceful_degradation
+2025-08-24 16:16:06 - cybersecurity_platform - DEBUG - 调试信息
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 系统启动
+2025-08-24 16:16:06 - cybersecurity_platform - WARNING - 配置项缺失
+2025-08-24 16:16:06 - cybersecurity_platform - ERROR - 数据库连接失败
+2025-08-24 16:16:06 - cybersecurity_platform - ERROR - 错误详情: NetworkError: 连接超时
+NoneType: None
+
+2025-08-24 16:16:06 - cybersecurity_platform - CRITICAL - 系统内存不足
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 日志导出成功: logs/demo_export.json
+2025-08-24 16:16:06 - cybersecurity_platform - INFO - 日志导出成功: logs/demo_export.txt
+2025-08-24 16:16:06 - cybersecurity_platform - DEBUG - 执行操作 unreliable_network_call (尝试 1/5)
+2025-08-24 16:16:06 - cybersecurity_platform - WARNING - 操作 unreliable_network_call 第 1 次尝试失败，0.50秒后重试
+2025-08-24 16:16:07 - cybersecurity_platform - DEBUG - 执行操作 unreliable_network_call (尝试 2/5)
+2025-08-24 16:16:07 - cybersecurity_platform - INFO - 操作 unreliable_network_call 在第 2 次尝试后成功
+2025-08-24 16:16:07 - cybersecurity_platform - DEBUG - 执行操作 flaky_api_call (尝试 1/3)
+2025-08-24 16:16:07 - cybersecurity_platform - WARNING - 操作 flaky_api_call 第 1 次尝试失败，1.00秒后重试
+2025-08-24 16:16:08 - cybersecurity_platform - DEBUG - 执行操作 flaky_api_call (尝试 2/3)
+2025-08-24 16:16:08 - cybersecurity_platform - WARNING - 操作 flaky_api_call 第 2 次尝试失败，1.00秒后重试
+2025-08-24 16:16:09 - cybersecurity_platform - DEBUG - 执行操作 flaky_api_call (尝试 3/3)
+2025-08-24 16:16:09 - cybersecurity_platform - ERROR - 操作 flaky_api_call 在 3 次尝试后最终失败
+2025-08-24 16:16:09 - cybersecurity_platform - ERROR - 错误详情: AIProviderError: API调用失败: 服务暂时不可用
+Traceback (most recent call last):
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\src\core\logging_system.py", line 167, in retry_sync
+    result = func(*args, **kwargs)
+  File "C:\1AAA_PROJECT\HOS_MANAGER_REACT\demo_error_recovery.py", line 50, in flaky_api_call
+    raise AIProviderError("API调用失败: 服务暂时不可用")
+core.exceptions.AIProviderError: API调用失败: 服务暂时不可用
+
+2025-08-24 16:16:09 - cybersecurity_platform - DEBUG - 执行操作 timeout_prone_operation (尝试 1/4)
+2025-08-24 16:16:11 - cybersecurity_platform - INFO - 日志系统已关闭
